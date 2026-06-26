@@ -2,12 +2,12 @@
   "name": "devops-api",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
-  "start": "node src/server.js",
-  "dev": "nodemon src/server.js",
-  "test": "jest",
-  "lint": "eslint src/"
-},
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "lint": "eslint src/"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,6 +16,8 @@
     "express": "^5.2.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2"
   }
 }
