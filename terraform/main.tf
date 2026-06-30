@@ -148,7 +148,8 @@ resource "aws_instance" "devops_api_server" {
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.devops_api_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
-  key_name               = aws_key_pair.devops_api_key.key_name
+  key_name                = aws_key_pair.devops_api_key.key_name
+
   user_data = <<-EOF
               #!/bin/bash
               set -e
@@ -161,6 +162,8 @@ resource "aws_instance" "devops_api_server" {
               docker pull ${aws_ecr_repository.devops_api.repository_url}:latest
               docker run -d -p 3000:3000 --restart unless-stopped ${aws_ecr_repository.devops_api.repository_url}:latest
               EOF
+
+  user_data_replace_on_change = true
 
   tags = {
     Name = "devops-api-server"
