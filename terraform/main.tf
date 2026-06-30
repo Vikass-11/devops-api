@@ -21,6 +21,14 @@ resource "aws_ecr_repository" "devops_api" {
 }
 
 # ---------------------------
+# SSH Key Pair
+# ---------------------------
+resource "aws_key_pair" "devops_api_key" {
+  key_name   = "devops-api-key"
+  public_key = file("${path.module}/devops-api-key.pub")
+}
+
+# ---------------------------
 # Security Group
 # ---------------------------
 resource "aws_security_group" "devops_api_sg" {
@@ -140,7 +148,7 @@ resource "aws_instance" "devops_api_server" {
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.devops_api_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
-
+  key_name               = aws_key_pair.devops_api_key.key_name
   user_data = <<-EOF
               #!/bin/bash
               set -e
